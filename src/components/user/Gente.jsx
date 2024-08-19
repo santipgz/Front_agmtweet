@@ -38,9 +38,6 @@ export const Gente = () => {
     }
   };
 
-
-
-
   return (
     <>
       <header className="content__header">
@@ -48,8 +45,16 @@ export const Gente = () => {
         <button className="content__button">Mostrar nuevas</button>
       </header>
 
-     <UserList users={users} getUsers={getUsers} following={following} setFollowing={setFollowing} page={page} setPage={setPage} more={more} setMore={setMore}></UserList>
-      
+      <UserList
+        users={users}
+        getUsers={getUsers}
+        following={following}
+        setFollowing={setFollowing}
+        page={page}
+        setPage={setPage}
+        more={more}
+        setMore={setMore}
+      ></UserList>
     </>
   );
 };

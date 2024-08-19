@@ -1,18 +1,18 @@
-import React from 'react'
+import React from "react";
 
 export const SerializeForm = (form) => {
-    const formData = new FormData(form)
+  const formData = new FormData(form);
 
-    const completeObj = {}
+  const completeObj = {};
 
-    /* Dos formas de recorrer */
+  /* Dos formas de recorrer */
 
-   /*  for (let [name, value] of formData) {
+  /*  for (let [name, value] of formData) {
         console.log(name, value)
     } */
-    formData.forEach((value, name) => {
-        completeObj[name]=value
-    });
+  formData.forEach((value, name) => {
+    completeObj[name] = value;
+  });
 
-    return completeObj
-}
+  return completeObj;
+};

@@ -125,88 +125,72 @@ export const Profile = () => {
 
   return (
     <>
-      <header className="aside__profile-info">
-        <div className="profile-info__general-info">
-          <div className="general-info__container-avatar">
-            {user?.image != "default.png" && (
-              <img
-                src={Global.url + "user/avatar/" + user?.image}
-                className="container-avatar__img"
-                alt="Foto de perfil"
-              />
-            )}
-            {user?.image == "default.png" && (
-              <img
-                src={Avatar}
-                className="container-avatar__img"
-                alt="Foto de perfil"
-              />
-            )}
-          </div>
-
-          <div className="general-info__container-names">
-            <p href="#" className="container-names__name">
-              <h1>
-                {user?.name} {user?.surname}
-              </h1>
-
-              {user?._id != auth?._id &&
-                (iFollow ? (
-                  <button
-                    onClick={() => unfollow(user._id)}
-                    className="content__button content__button--rigth post__button"
-                  >
-                    Dejar de seguir
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => follow(user._id)}
-                    className="content__button content__button--rigth"
-                  >
-                    Seguir
-                  </button>
-                ))}
-            </p>
-            <h2 className="container-names__nickname">{user?.nick}</h2>
-            <p>{user?.biografia}</p>
-          </div>
+      <header className="profile-header">
+        <div className="profile-header__avatar-container">
+          {user?.image !== "default.png" ? (
+            <img
+              src={Global.url + "user/avatar/" + user?.image}
+              className="profile-header__avatar"
+              alt="Foto de perfil"
+            />
+          ) : (
+            <img
+              src={Avatar}
+              className="profile-header__avatar"
+              alt="Foto de perfil"
+            />
+          )}
         </div>
 
-        <div className="profile-info__stats">
-          <div className="stats__following">
-            <Link
-              to={"/social/siguiendo/" + user?._id}
-              className="following__link"
-            >
-              <span className="following__title">Siguiendo</span>
-              <span className="following__number">
-                {counters?.following >= 1 ? counters?.following : 0}
-              </span>
-            </Link>
-          </div>
-          <div className="stats__following">
-            <Link
-              to={"/social/seguidores/" + user?._id}
-              className="following__link"
-            >
-              <span className="following__title">Seguidores</span>
-              <span className="following__number">
-                {counters?.followed >= 1 ? counters?.followed : 0}
-              </span>
-            </Link>
-          </div>
+        <div className="profile-header__info">
+          <h1 className="profile-header__name">
+            {user?.name} {user?.surname}
+          </h1>
+          <h2 className="profile-header__nickname">{user?.nick}</h2>
+          <p className="profile-header__bio">{user?.biografia}</p>
 
-          <div className="stats__following">
-            <Link
-              to={"/social/perfil/" + user?._id}
-              className="following__link"
+          {user?._id !== auth?._id && (
+            <button
+              onClick={() => (iFollow ? unfollow(user._id) : follow(user._id))}
+              className={`profile-header__button ${
+                iFollow
+                  ? "profile-header__button--unfollow"
+                  : "profile-header__button--follow"
+              }`}
             >
-              <span className="following__title">Publicaciones</span>
-              <span className="following__number">
-                {counters?.publications >= 1 ? counters?.publications : 0}
-              </span>
-            </Link>
-          </div>
+              {iFollow ? "Dejar de seguir" : "Seguir"}
+            </button>
+          )}
+        </div>
+
+        <div className="profile-header__stats">
+          <Link
+            to={`/social/siguiendo/${user?._id}`}
+            className="profile-header__stat"
+          >
+            <span className="profile-header__stat-title">Siguiendo</span>
+            <span className="profile-header__stat-number">
+              {counters?.following >= 1 ? counters?.following : 0}
+            </span>
+          </Link>
+          <Link
+            to={`/social/seguidores/${user?._id}`}
+            className="profile-header__stat"
+          >
+            <span className="profile-header__stat-title">Seguidores</span>
+            <span className="profile-header__stat-number">
+              {counters?.followed >= 1 ? counters?.followed : 0}
+            </span>
+          </Link>
+          <Link
+            to={`/social/perfil/${user?._id}`}
+            className="profile-header__stat"
+          >
+            <span className="profile-header__stat-title">Publicaciones</span>
+            <span className="profile-header__stat-number">
+              {counters?.publications >= 1 ? counters?.publications : 0}
+            </span>
+          </Link>
         </div>
       </header>
 

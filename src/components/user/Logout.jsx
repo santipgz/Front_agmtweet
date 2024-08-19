@@ -1,21 +1,19 @@
-import React from 'react'
-import { useEffect } from 'react'
-import useAuth from '../../hooks/useAuth'
-import { useNavigate } from 'react-router-dom'
+import React from "react";
+import { useEffect } from "react";
+import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export const Logout = () => {
-    const { setAuth, setCounters } = useAuth()
-    const navigate = useNavigate()
-    useEffect(() => {
-        localStorage.clear()
+  const { setAuth, setCounters } = useAuth();
+  const navigate = useNavigate();
+  useEffect(() => {
+    localStorage.clear();
 
-        setAuth({})
-        setCounters({})
+    setAuth({});
+    setCounters({});
 
-        navigate("/login")
-    })
+    navigate("/login");
+  });
 
-    return (
-        <h1>Cerrando sesion...</h1>
-    )
-}
+  return <h1>Cerrando sesion...</h1>;
+};

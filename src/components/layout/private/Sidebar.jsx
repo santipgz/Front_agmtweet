@@ -60,130 +60,115 @@ export const Sidebar = () => {
       } else {
         setStored("error");
       }
-
-    
     }
     const myform = document.querySelector("#publication-form");
     myform.reset();
   };
   return (
-    <aside className="layout__aside">
-      <header className="aside__header">
-        <h1 className="aside__title">Hola, {auth.name}</h1>
+    <aside className="sidebar">
+      <header className="sidebar__header">
+        <h1 className="sidebar__title">Hola, {auth.name}</h1>
       </header>
 
-      <div className="aside__container">
-        <div className="aside__profile-info">
-          <div className="profile-info__general-info">
-            <div className="general-info__container-avatar">
-              {auth.image != "default.png" && (
+      <div className="sidebar__content">
+        <div className="profile">
+          <div className="profile__info">
+            <div className="profile__avatar-container">
+              {auth.image !== "default.png" ? (
                 <img
                   src={Global.url + "user/avatar/" + auth.image}
-                  className="container-avatar__img"
+                  className="profile__avatar"
                   alt="Foto de perfil"
                 />
-              )}
-              {auth.image == "default.png" && (
+              ) : (
                 <img
                   src={Avatar}
-                  className="container-avatar__img"
+                  className="profile__avatar"
                   alt="Foto de perfil"
                 />
               )}
             </div>
 
-            <div className="general-info__container-names">
-              <Link
-                to={"/social/perfil/" + auth._id}
-                className="container-names__name"
-              >
+            <div className="profile__names">
+              <Link to={"/social/perfil/" + auth._id} className="profile__name">
                 {auth.name}
               </Link>
-              <p className="container-names__nickname">{auth.nick}</p>
+              <p className="profile__nickname">{auth.nick}</p>
             </div>
           </div>
 
-          <div className="profile-info__stats">
-            <div className="stats__following">
+          <div className="profile__stats">
+            <div className="stats">
               <Link
                 to={"/social/siguiendo/" + auth._id}
-                className="following__link"
+                className="stats__link"
               >
-                <span className="following__title">Siguiendo</span>
-                <span className="following__number">{counters.following}</span>
+                <span className="stats__title">Siguiendo</span>
+                <span className="stats__number">{counters.following}</span>
               </Link>
             </div>
-            <div className="stats__following">
+            <div className="stats">
               <Link
                 to={"/social/seguidores/" + auth._id}
-                className="following__link"
+                className="stats__link"
               >
-                <span className="following__title">Seguidores</span>
-                <span className="following__number">{counters.followed}</span>
+                <span className="stats__title">Seguidores</span>
+                <span className="stats__number">{counters.followed}</span>
               </Link>
             </div>
 
-            <div className="stats__following">
-              <Link
-                to={"/social/perfil/" + auth._id}
-                className="following__link"
-              >
-                <span className="following__title">Publicaciones</span>
-                <span className="following__number">
-                  {counters.publications}
-                </span>
+            <div className="stats">
+              <Link to={"/social/perfil/" + auth._id} className="stats__link">
+                <span className="stats__title">Publicaciones</span>
+                <span className="stats__number">{counters.publications}</span>
               </Link>
             </div>
           </div>
         </div>
 
-        <div className="aside__container-form">
-          {stored == "stored" ? (
+        <div className="post-form">
+          {stored === "stored" && (
             <strong className="alert alert-success">
               Publicado correctamente{" "}
             </strong>
-          ) : (
-            ""
           )}
-          {stored == "error" ? (
+          {stored === "error" && (
             <strong className="alert alert-danger">
               No se ha podido publicar
             </strong>
-          ) : (
-            ""
           )}
           <form
             id="publication-form"
-            className="container-form__form-post"
+            className="post-form__form"
             onSubmit={savePublication}
           >
-            <div className="form-post__inputs">
-              <label htmlFor="text" className="form-post__label">
-                ¿Que estas pesando hoy?
+            <div className="post-form__group">
+              <label htmlFor="text" className="post-form__label">
+                ¿Qué estás pensando hoy?
               </label>
               <textarea
                 name="text"
-                className="form-post__textarea"
+                className="post-form__textarea"
                 onChange={changed}
               ></textarea>
             </div>
 
-            <div className="form-post__inputs">
-              <label htmlFor="image" className="form-post__label">
+            <div className="post-form__group">
+              <label htmlFor="image" className="post-form__label">
                 Sube tu foto
               </label>
               <input
                 type="file"
                 name="file"
                 id="file"
-                className="form-post__image"
+                className="post-form__file"
               />
             </div>
 
             <input
               type="submit"
-              value="Enviar"
-              className="form-post__btn-submit"
+              value="Publicar"
+              className="post-form__submit"
             />
           </form>
         </div>

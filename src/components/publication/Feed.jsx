@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import Avatar from "../../assets/img/user.png";
 import { Link, useParams } from "react-router-dom";
@@ -16,22 +15,18 @@ export const Feed = () => {
     getPublications(1, false);
   }, []);
   const getPublications = async (nextPage = 1, showNews = false) => {
-
-    if(showNews){
-      setPublications([])
-      setPage(1)
-      nextPage=1
+    if (showNews) {
+      setPublications([]);
+      setPage(1);
+      nextPage = 1;
     }
-    const request = await fetch(
-      Global.url + "publication/feed/" + nextPage,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-      }
-    );
+    const request = await fetch(Global.url + "publication/feed/" + nextPage, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    });
     const data = await request.json();
 
     if (data.status == "success") {
@@ -40,12 +35,11 @@ export const Feed = () => {
         newPublications = [...publications, ...data.publications];
       }
 
-      
       setPublications(newPublications);
 
       if (
-       
-        !showNews && publications.length >= data.total - data.publications.length
+        !showNews &&
+        publications.length >= data.total - data.publications.length
       ) {
         setMore(false);
       }
@@ -57,8 +51,13 @@ export const Feed = () => {
   return (
     <>
       <header className="content__header">
-        <h1 className="content__title">Timeline</h1>
-        <button onClick={() => getPublications(1,true)} className="content__button">Mostrar nuevas</button>
+        <h1 className="content__title">Feed</h1>
+        <button
+          onClick={() => getPublications(1, true)}
+          className="content__button"
+        >
+          Mostrar nuevas
+        </button>
       </header>
       <PublicationList
         publications={publications}
@@ -68,8 +67,6 @@ export const Feed = () => {
         more={more}
         setMore={setMore}
       ></PublicationList>
-     
-      
     </>
   );
 };

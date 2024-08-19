@@ -6,7 +6,7 @@ export function Register() {
   //Llamar a hook por separado
   const { form, changed } = useForm({});
 
-  const [saved, setSaved] = useState("Not saved")
+  const [saved, setSaved] = useState("Not saved");
 
   //Funcion que guarda usuario
   const saveUser = async (e) => {
@@ -41,47 +41,80 @@ export function Register() {
       setSaved("Error, not save");
       console.error("An error occurred:", error);
     }
-
   };
   return (
     <>
-      <header className="content__header content__header--public">
+      {/* <header className="content__header content__header--public">
         <h1 className="content__title">Registro</h1>
-      </header>
-      <div className="content__posts">
-        {saved == "Save" ?
-          <strong className="alert alert-success">Usuario Registrado </strong>
-          : ''}
-        {saved == "Error, not save" ?
-          <strong className="alert alert-danger">Usuario no registrado</strong>
-          : ""}
-        <form className="register-form" onSubmit={saveUser}>
-          <div className="form-group">
-            <label htmlFor="name">Nombre</label>
-            <input type="text" name="name" onChange={changed} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="surname">Apellidos</label>
-            <input type="text" name="surname" onChange={changed} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="nick">Nickname</label>
-            <input type="text" name="nick" onChange={changed} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Correo electronico</label>
-            <input type="email" name="email" onChange={changed} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Contraseña</label>
-            <input type="password" name="password" onChange={changed} />
-          </div>
-          <input
-            type="submit"
-            value="Registrarte"
-            className="btn btn-success"
-          />
-        </form>
+      </header> */}
+      <div className="login-wrapper">
+        <div className="login-image"></div>
+        <div className="login-form-container register">
+          {saved == "Save" ? (
+            <strong className="alert alert-success">Usuario Registrado </strong>
+          ) : (
+            ""
+          )}
+          {saved == "Error, not save" ? (
+            <strong className="alert alert-danger">
+              Usuario no registrado
+            </strong>
+          ) : (
+            ""
+          )}
+          <form className="form-login " onSubmit={saveUser}>
+            <div className="form-login__group">
+              <label htmlFor="name">Nombre</label>
+              <input
+                type="text"
+                name="name"
+                onChange={changed}
+                className="form-login__input"
+              />
+            </div>
+            <div className="form-login__group">
+              <label htmlFor="surname">Apellidos</label>
+              <input
+                type="text"
+                name="surname"
+                onChange={changed}
+                className="form-login__input"
+              />
+            </div>
+            <div className="form-login__group">
+              <label htmlFor="nick">Nickname</label>
+              <input
+                type="text"
+                name="nick"
+                onChange={changed}
+                className="form-login__input"
+              />
+            </div>
+            <div className="form-login__group">
+              <label htmlFor="email">Correo electronico</label>
+              <input
+                type="email"
+                name="email"
+                onChange={changed}
+                className="form-login__input"
+              />
+            </div>
+            <div className="form-login__group">
+              <label htmlFor="password">Contraseña</label>
+              <input
+                type="password"
+                name="password"
+                onChange={changed}
+                className="form-login__input"
+              />
+            </div>
+            <input
+              type="submit"
+              value="Registrarte"
+              className="btn btn-success"
+            />
+          </form>
+        </div>
       </div>
     </>
   );

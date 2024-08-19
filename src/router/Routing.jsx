@@ -15,37 +15,43 @@ import { Profile } from "../components/user/Profile";
 export const Routing = () => {
   return (
     <BrowserRouter>
-    <AuthProvider>
-      <Routes>
-        <Route path="/" element={<PublicLayout></PublicLayout>}>
-          <Route index element={<Login></Login>}></Route>
-          <Route path="login" element={<Login></Login>}></Route>
-          <Route path="registro" element={<Register></Register>}></Route>
-        </Route>
-        <Route path="/social" element={<PrivateLayout />}>
-          <Route index element={<Feed></Feed>}></Route>
-          <Route path="feed" element={<Feed></Feed>}></Route>
-          <Route path="logout" element={<Logout></Logout>}></Route>
-          <Route path="people" element={<Gente></Gente>}></Route>
-          <Route path="config" element={<Config></Config>}></Route>
-          <Route path="siguiendo/:userId" element={<Following></Following>}></Route>
-          <Route path="seguidores/:userId" element={<Followers></Followers>}></Route>
-          <Route path="perfil/:userId" element={<Profile></Profile>}></Route>
-        </Route>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<PublicLayout></PublicLayout>}>
+            <Route index element={<Login></Login>}></Route>
+            <Route path="login" element={<Login></Login>}></Route>
+            <Route path="registro" element={<Register></Register>}></Route>
+          </Route>
+          <Route path="/social" element={<PrivateLayout />}>
+            <Route index element={<Feed></Feed>}></Route>
+            <Route path="feed" element={<Feed></Feed>}></Route>
+            <Route path="logout" element={<Logout></Logout>}></Route>
+            <Route path="people" element={<Gente></Gente>}></Route>
+            <Route path="config" element={<Config></Config>}></Route>
+            <Route
+              path="siguiendo/:userId"
+              element={<Following></Following>}
+            ></Route>
+            <Route
+              path="seguidores/:userId"
+              element={<Followers></Followers>}
+            ></Route>
+            <Route path="perfil/:userId" element={<Profile></Profile>}></Route>
+          </Route>
 
-        {/* Tambien se puede hacer un componente especifico */}
-        <Route
-          path="*"
-          element={
-            <>
-              <p>
-                <h1>Error 404</h1>
-                <Link to="/">Volver al inicio</Link>
-              </p>
-            </>
-          }
-        ></Route>
-      </Routes>
+          {/* Tambien se puede hacer un componente especifico */}
+          <Route
+            path="*"
+            element={
+              <>
+                <p>
+                  <h1>Error 404</h1>
+                  <Link to="/">Volver al inicio</Link>
+                </p>
+              </>
+            }
+          ></Route>
+        </Routes>
       </AuthProvider>
     </BrowserRouter>
   );

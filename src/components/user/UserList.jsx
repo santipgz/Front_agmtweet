@@ -3,12 +3,20 @@ import Avatar from "../../assets/img/user.png";
 import { Global } from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
-import ReactTimeAgo from "react-time-ago"
+import ReactTimeAgo from "react-time-ago";
 
-
-export const UserList = ({ users, getUsers, following, setFollowing, page, setPage, more, setMore}) => {
+export const UserList = ({
+  users,
+  getUsers,
+  following,
+  setFollowing,
+  page,
+  setPage,
+  more,
+  setMore,
+}) => {
   const { auth } = useAuth();
-  console.log(users)
+  console.log(users);
   const nextPage = () => {
     let next = page + 1;
     setPage(next);
@@ -59,62 +67,67 @@ export const UserList = ({ users, getUsers, following, setFollowing, page, setPa
   return (
     <>
       {" "}
-      <div className="content__posts">
+      <div className="users">
         {users
           ? users.map((user) => {
               return (
-                <article key={user._id} className="posts__post">
-                  <div className="post__container">
-                    <div className="post__image-user">
-                      <Link to={"/social/perfil/" + user._id} className="post__image-link">
-
-                         {user.image != "default.png" && (
+                <article key={user._id} className="user-card">
+                  <div className="user-card__container">
+                    <div className="user-card__avatar">
+                      <Link
+                        to={"/social/perfil/" + user._id}
+                        className="avatar__link"
+                      >
+                        {user.image !== "default.png" ? (
                           <img
                             src={Global.url + "user/avatar/" + user.image}
-                            className="post__user-image"
+                            className="avatar__img"
+                            alt="Foto de perfil"
+                          />
+                        ) : (
+                          <img
+                            src={Avatar}
+                            className="avatar__img"
                             alt="Foto de perfil"
                           />
                         )}
-                        {user.image == "default.png" && (
-                          <img
-                            src={Avatar}
-                            className="post__user-image"
-                            alt="Foto de perfil"
-                          />
-                        )} 
                       </Link>
                     </div>
 
-                    <div className="post__body">
-                      <div className="post__user-info">
-                        <Link to={"/social/perfil/" + user._id} className="user-info__name">
+                    <div className="user-card__info">
+                      <div className="user-card__header">
+                        <Link
+                          to={"/social/perfil/" + user._id}
+                          className="user-card__name"
+                        >
                           {user.name} {user.surname}
                         </Link>
-                        <span className="user-info__divider"> | </span>
-                        <Link to={"/social/perfil/" + user._id} className="user-info__create-date">
-                          agmtwetter desde {" "} 
-                          <ReactTimeAgo date={user.created_at} locale="es-ES"></ReactTimeAgo>
-
+                        <span className="user-card__divider"> | </span>
+                        <Link
+                          to={"/social/perfil/" + user._id}
+                          className="user-card__date"
+                        >
+                          Activo desde{" "}
+                          <ReactTimeAgo date={user.created_at} locale="es-ES" />
                         </Link>
                       </div>
 
-                      <h4 className="post__content">{user.biografia}</h4>
+                      <p className="user-card__bio">{user.biografia}</p>
                     </div>
                   </div>
-                  {/* Solo mostrar botones seguir/no seguir cuando el usuario no sea el identificaado */}
-                  {user._id != auth._id && (
-                    <div className="post__buttons">
-                      {!following.includes(user._id) && (
+
+                  {user._id !== auth._id && (
+                    <div className="user-card__actions">
+                      {!following.includes(user._id) ? (
                         <button
-                          className="post__button post__button--green"
+                          className="user-card__button user-card__button--follow"
                           onClick={() => follow(user._id)}
                         >
                           Seguir
                         </button>
-                      )}
-                      {following.includes(user._id) && (
+                      ) : (
                         <button
-                          className="post__button"
+                          className="user-card__button user-card__button--unfollow"
                           onClick={() => unfollow(user._id)}
                         >
                           Dejar de seguir
@@ -128,9 +141,9 @@ export const UserList = ({ users, getUsers, following, setFollowing, page, setPa
           : ""}
       </div>
       {more && (
-        <div className="content__container-btn">
-          <button className="content__btn-more-post" onClick={nextPage}>
-            Ver mas personas
+        <div className="users__load-more">
+          <button className="load-more__btn" onClick={nextPage}>
+            Ver más personas
           </button>
         </div>
       )}
