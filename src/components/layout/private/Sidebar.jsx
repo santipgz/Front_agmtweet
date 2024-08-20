@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "../../../assets/img/user.png";
 import { Global } from "../../../helpers/Global";
 import useAuth from "../../../hooks/useAuth";
@@ -9,6 +9,15 @@ export const Sidebar = () => {
   const { auth, counters } = useAuth();
   const { form, changed } = useForm({});
   const [stored, setStored] = useState("Not stored");
+
+  useEffect(() => {
+    if (stored) {
+      const timer = setTimeout(() => {
+        setStored(null); // Ocultar el mensaje después de 3 segundos (3000 ms)
+      }, 3000);
+      return () => clearTimeout(timer); // Limpiar el timer cuando el componente se desmonta o el efecto se vuelve a ejecutar
+    }
+  }, [stored]);
 
   console.log(auth);
   console.log(counters);

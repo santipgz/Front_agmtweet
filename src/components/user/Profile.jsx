@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { Global } from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
 import { PublicationList } from "../publication/PublicationList";
+
 export const Profile = () => {
   const [user, setUser] = useState();
   const params = useParams();
@@ -19,17 +20,13 @@ export const Profile = () => {
     getDataUser();
     getCounters();
     getPublications(1, true);
-  }, []);
-  useEffect(() => {
-    getDataUser();
-    getCounters();
-    setMore(true);
-    getPublications(1, true);
   }, [params]);
+
   const getDataUser = async () => {
     let dataUser = await GetProfile(params.userId, setUser);
     if (dataUser.following && dataUser.following._id) setIFollow(true);
   };
+
   const getCounters = async () => {
     const request = await fetch(Global.url + "user/counters/" + params.userId, {
       method: "GET",
@@ -44,9 +41,8 @@ export const Profile = () => {
       setCounters(data);
     }
   };
-  const follow = async (userID) => {
-    //Peticion al backend para guardar el follow
 
+  const follow = async (userID) => {
     const request = await fetch(Global.url + "follow/save", {
       method: "POST",
       body: JSON.stringify({ followed: userID }),
@@ -57,15 +53,12 @@ export const Profile = () => {
     });
 
     const dataFollow = await request.json();
-    // Cuando este todo ok
-    if (dataFollow.status == "success") {
+    if (dataFollow.status === "success") {
       setIFollow(true);
     }
-    // Actualizando estando de following
   };
 
   const unfollow = async (userID) => {
-    //Peticion al backend para borrar el follow
     const request = await fetch(Global.url + "follow/unfollow/" + userID, {
       method: "DELETE",
       headers: {
@@ -73,17 +66,19 @@ export const Profile = () => {
         Authorization: localStorage.getItem("token"),
       },
     });
-    // Cuando este todo ok
     const dataUnfollow = await request.json();
-
-    // Actualizando estando de following
-    //filtrando los datos para eliminar el antiguo userId que acabo de dejar de seguir
-    if (dataUnfollow.status == "success") {
+    if (dataUnfollow.status === "success") {
       setIFollow(false);
     }
   };
 
   const getPublications = async (nextPage = 1, newProfile = false) => {
+    if (newProfile) {
+      setPublications([]);
+      setPage(1);
+      nextPage = 1;
+    }
+
     const request = await fetch(
       Global.url + "publication/user/" + params.userId + "/" + nextPage,
       {
@@ -96,30 +91,27 @@ export const Profile = () => {
     );
     const data = await request.json();
 
-    if (data.status == "success") {
+    if (data.status === "success") {
       let newPublications = data.publications;
       if (!newProfile && publications.length >= 1) {
         newPublications = [...publications, ...data.publications];
       }
 
-      if (newProfile) {
-        newPublications = data.publications;
-
-        setMore(true);
-
-        setPage(1);
-      }
       setPublications(newPublications);
 
+      // Determinar si hay más publicaciones basadas en la cantidad total de publicaciones y las obtenidas
       if (
         !newProfile &&
-        publications.length >= data.total - data.publications.length
+        publications.length + data.publications.length >= data.total
       ) {
         setMore(false);
-      }
-      if (data.pages <= 1) {
+      } else if (data.pages <= 1) {
         setMore(false);
+      } else {
+        setMore(true);
       }
+    } else {
+      setMore(false); // Si la respuesta no es exitosa, no hay más publicaciones
     }
   };
 
@@ -192,6 +184,13 @@ export const Profile = () => {
             </span>
           </Link>
         </div>
+        <br></br>
+        <button
+          onClick={() => getPublications(1, true)}
+          className="content__button"
+        >
+          Mostrar nuevas
+        </button>
       </header>
 
       <PublicationList
