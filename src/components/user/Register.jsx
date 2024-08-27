@@ -70,6 +70,7 @@ export function Register() {
                 name="name"
                 onChange={changed}
                 className="form-login__input"
+                required
               />
             </div>
             <div className="form-login__group">
@@ -79,6 +80,7 @@ export function Register() {
                 name="surname"
                 onChange={changed}
                 className="form-login__input"
+                required
               />
             </div>
             <div className="form-login__group">
@@ -88,6 +90,7 @@ export function Register() {
                 name="nick"
                 onChange={changed}
                 className="form-login__input"
+                required
               />
             </div>
             <div className="form-login__group">
@@ -97,6 +100,7 @@ export function Register() {
                 name="email"
                 onChange={changed}
                 className="form-login__input"
+                required
               />
             </div>
             <div className="form-login__group">
@@ -106,6 +110,7 @@ export function Register() {
                 name="password"
                 onChange={changed}
                 className="form-login__input"
+                required
               />
             </div>
             <input
