@@ -41,7 +41,7 @@ export const Gente = () => {
   return (
     <>
       <header className="content__header">
-        <h1 className="content__title">GENTE</h1>
+        <h1 className="content__title">People</h1>
         <button className="content__button">Mostrar nuevas</button>
       </header>
 

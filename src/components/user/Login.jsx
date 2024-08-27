@@ -57,12 +57,12 @@ export const Login = () => {
         <div className="login-form-container">
           {saved === "login" && (
             <div className="alert alert-success">
-              Usuario identificado correctamente
+              usuario identificado correctamente
             </div>
           )}
           {saved === "error" && (
             <div className="alert alert-danger">
-              Usuario o contraseña incorrectos
+              email o contraseña incorrectos
             </div>
           )}
           <form className="form-login" onSubmit={loginUser}>
@@ -70,11 +70,12 @@ export const Login = () => {
              */}{" "}
             <div className="form-login__group">
               <input
-                type="text"
+                type="email"
                 name="email"
-                placeholder="Correo Electrónico"
+                placeholder="Email"
                 className="form-login__input"
                 onChange={changed}
+                required
               />
             </div>
             <div className="form-login__group">
@@ -84,14 +85,18 @@ export const Login = () => {
                 placeholder="Contraseña"
                 className="form-login__input"
                 onChange={changed}
+                required
               />
             </div>
             <button type="submit" className="form-login__submit">
-              Entrar
+              Acceder a <b>AGMTWEET</b>
             </button>
           </form>
         </div>
+       
       </div>
+      <p>* La primera peticion al back que se realiza (normalmente login o registro) tardara unos 50 segundos en responder.</p>
+      <p>Debido a las limitaciones del hosting gratuito render. Documentado en Memoria.</p>
     </>
   );
 };

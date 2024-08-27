@@ -51,7 +51,7 @@ export function Register() {
         <div className="login-image"></div>
         <div className="login-form-container register">
           {saved == "Save" ? (
-            <strong className="alert alert-success">Usuario Registrado </strong>
+            <strong className="alert alert-success">Usuario Registrado</strong>
           ) : (
             ""
           )}
@@ -91,7 +91,7 @@ export function Register() {
               />
             </div>
             <div className="form-login__group">
-              <label htmlFor="email">Correo electronico</label>
+              <label htmlFor="email">Email</label>
               <input
                 type="email"
                 name="email"
@@ -110,7 +110,7 @@ export function Register() {
             </div>
             <input
               type="submit"
-              value="Registrarte"
+              value="Registrate en AGMTWEET"
               className="btn btn-success"
             />
           </form>
